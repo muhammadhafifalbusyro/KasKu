@@ -2,8 +2,11 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Transaksi from '../screens/Transaksi';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Transaksi from '../screens/Transaksi';
+import Laporan from '../screens/Laporan';
+import Setelan from '../screens/Setelan';
+import TambahTransaksi from '../screens/TambahTransaksi';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -13,9 +16,9 @@ function MainTab() {
     <Tab.Navigator
       initialRouteName="Transaksi"
       tabBarOptions={{
-        activeTintColor: 'orange',
+        activeTintColor: 'dodgerblue',
         inactiveTintColor: 'grey',
-        showLabel: false,
+        showLabel: true,
       }}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
@@ -23,7 +26,14 @@ function MainTab() {
           let iconSize;
 
           if (route.name === 'Transaksi') {
-            iconName = focused ? 'home' : 'home';
+            iconName = focused ? 'pencil-square-o' : 'pencil-square-o';
+            iconSize = size;
+          } else if (route.name === 'Laporan') {
+            iconName = focused ? 'book' : 'book';
+            iconSize = size;
+          }
+          if (route.name === 'Setelan') {
+            iconName = focused ? 'gear' : 'gear';
             iconSize = size;
           }
 
@@ -31,6 +41,13 @@ function MainTab() {
         },
       })}>
       <Tab.Screen name="Transaksi" component={Transaksi} />
+      <Tab.Screen name="Laporan" component={Laporan} />
+      <Tab.Screen name="Setelan" component={Setelan} />
+      <Tab.Screen
+        name="TambahTransaksi"
+        component={TambahTransaksi}
+        options={{tabBarVisible: false, tabBarButton: () => null}}
+      />
     </Tab.Navigator>
   );
 }
